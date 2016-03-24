@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link href="css/reset.css" rel="stylesheet"/>
+<link href="css/base.css" rel="stylesheet"/>
+<link href="css/tab.css" rel="stylesheet"/>
+<link href="css/index.css" rel="stylesheet"/>
+
+<title>tab选项卡插件demo</title>
+</head>
+<body>
+	<h2>不可编辑的tab</h2>
+    <div id="tabForm">
+    	<div class="tab-content-wrapper">
+    		<div class="hidden" data-tab-target="{
+	                name: 'write',
+	                text: '写消息',
+	                selected: false
+	            }">
+	            <p>123</p>
+	        </div>
+	        <div class="hidden" data-tab-target="{
+	                name: 'receive',
+	                text: '收件箱',
+	                selected: true
+	            }">
+	            <p>456</p>
+	        </div>
+	        <div class="hidden" data-tab-target="{
+	                name: 'sendout',
+	                text: '发件箱',
+	                selected: false
+	            }">
+	            <p>789</p>
+	        </div>
+    	</div>
+        
+    </div>
+	------------------------------------------------------------------
+	<h2>可编辑的tab</h2>
+    <div id="editTab"></div>
+</body>
+<script src="script/jquery-1.8.3.js"></script>
+<script src="script/jquery.tab.js"></script>
+<script src="script/index.js"></script>
+</html>

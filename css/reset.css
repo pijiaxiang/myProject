@@ -1,0 +1,33 @@
+﻿/*------- reset ------*/
+/*@charset "utf-8";*/
+/* --Elements-- */
+body,div{
+	margin: 0px;
+	padding: 0px;
+}
+
+ul,ol,li{
+	margin: 0px;
+	padding: 0px;
+}
+
+ul,ol{
+	list-style: none;
+}
+
+a{
+	text-decoration: none;
+}
+
+a:hover{
+	/*color: red;*/
+	text-decoration: underline;
+}
+
+img{
+	border: none;
+}
+
+p{
+	text-indent: 20px;
+}
