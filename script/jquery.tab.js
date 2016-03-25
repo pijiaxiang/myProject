@@ -32,10 +32,10 @@
 
             if (this.options.isEdit === false) {
 
-                if (this.options.adding === true) {
-                    this.renderTab();
-                    return this;
-                }
+                // if (this.options.adding === true) {
+                //     this.renderTab();
+                //     return this;
+                // }
 
                 if (this.options.data.length === 0) {
                     this.packageData();
@@ -82,7 +82,7 @@
 
             var that = this;
 
-            that.$element.children(".jquery-tab").children(".tab-ul").children(".tab-ul-li").on("click", function() {
+            that.$element.find(".tab-ul-li").on("click", function() {
                 var $that = $(this),
                     name = $that.attr("name");
                 if (!$that.hasClass("tab-select")) {
@@ -96,7 +96,7 @@
 
             var that = this;
 
-            that.$element.children(".jquery-tab").children(".tab-ul").children("[name='addTab']").on("click", function() {
+            that.$element.find("[name='addTab']").on("click", function() {
                 that.addTab();
             });
 
@@ -131,7 +131,7 @@
                     li += '<li class="tab-ul-li" name=\"' + that.options.data[i].name + '\"><a href="javascript:;" onfocus="this.blur();">' + that.options.data[i].text + '</a></li>';
                 }
             }
-            if (that.$element.children().hasClass(".tab-content-wrapper")) {
+            if (that.$element.children().hasClass("tab-content-wrapper")) {
                 tab += li + '</ul></div>';
             } else {
                 tab += li + '</ul></div><div class="tab-content-wrapper"></div>';
@@ -157,7 +157,7 @@
 
             var tmpl = '<li class="tab-ul-li" name="' + this.tabConfig.name + this.tabConfig.num
                     + '"><a class="tab-edit-switch" href="javascript:;" onfocus="this.blur();">未知的表单</a><i class="tab-del"></i></li>';
-            this.$element.children(".jquery-tab").children(".tab-ul").children("[name='addTab']").before(tmpl);
+            this.$element.find("[name='addTab']").before(tmpl);
         },
 
         // 初始化Tab的内容
@@ -194,11 +194,11 @@
         switchTab: function(param) {
 
             if (typeof param === "number") {
-                this.$element.children(".jquery-tab").children(".tab-ul").children().eq(param).addClass("tab-select").siblings(".tab-ul-li").removeClass("tab-select");
+                this.$element.find(".tab-ul").children().eq(param).addClass("tab-select").siblings(".tab-ul-li").removeClass("tab-select");
                 this.$element.children(".tab-content-wrapper").children().eq(param).show().siblings('[data-tab-content]').hide();
             } else {
-                this.$element.children(".jquery-tab").children(".tab-ul").children("[name='" + param + "']").addClass("tab-select").siblings(".tab-ul-li").removeClass("tab-select");
-                this.$element.children(".tab-content-wrapper").children('[data-tab-content="' + param + '"]').show().siblings('[data-tab-content]').hide();
+                this.$element.find("[name='" + param + "']").addClass("tab-select").siblings(".tab-ul-li").removeClass("tab-select");
+                this.$element.find('[data-tab-content="' + param + '"]').show().siblings('[data-tab-content]').hide();
             }
         },
 
@@ -221,7 +221,7 @@
 
         addTabLimit: function() {
 
-            if (this.$element.children(".jquery-tab").children(".tab-ul").children().length > this.options.max) {
+            if (this.$element.find(".tab-ul").children().length > this.options.max) {
                 alert('添加不能超出' + this.options.max + '个选项卡!');
                 return false;
             }
@@ -240,37 +240,37 @@
                 li = '<li class="tab-ul-li" name=\"' + name + '\"><a href="javascript:;" onfocus="this.blur();">' + obj.text + '</a></li>';
             }
             
-            this.$element.children(".jquery-tab").children(".tab-ul").append(li);
+            this.$element.find(".tab-ul").append(li);
             this.$element.children(".tab-content-wrapper").append(tmpl);
             this.addEvent();
             this.tabConfig.num ++;
-            cb && cb(this.$element.children(".tab-content-wrapper").children('[data-tab-content="' + name + '"]'));
+            cb && cb(this.$element.find('[data-tab-content="' + name + '"]'));
         },
 
         // 修改了选项卡的名称
         rename: function(name, rename) {
 
-            this.$element.children(".jquery-tab").children(".tab-ul").children("[name='" + name + "']").children("a").html(rename);
+            this.$element.find("[name='" + name + "']").children("a").html(rename);
         },
 
         // 根据name获取tab选项卡的名字
         getTabText: function(name) {
-            var text = this.$element.children(".jquery-tab").children(".tab-ul").children("[name='" + name + "']").children("a").html();
+            var text = this.$element.find("[name='" + name + "']").children("a").html();
             return text;
         },
 
         // 删除tab
         delTab: function(name) {
 
-            var $delTab = this.$element.children(".jquery-tab").children(".tab-ul").children("[name='" + name + "']");
+            var $delTab = this.$element.find("[name='" + name + "']");
 
             if ($delTab.hasClass("tab-select")) {
                 $delTab.remove();
-                this.$element.children(".jquery-tab").children(".tab-ul").children(".tab-ul-li").children(".tab-edit-switch").click();
+                this.$element.find(".tab-edit-switch").click();
             } else {
                 $delTab.remove();
             }
-            this.$element.children(".tab-content-wrapper").children('[data-tab-content="' + name + '"]').remove();
+            this.$element.find('[data-tab-content="' + name + '"]').remove();
         }
     };
 

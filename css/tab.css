@@ -5,7 +5,7 @@
  */
 
 /* module:tab页样式 - by jxpi */
-.fly-tab {
+.jquery-tab {
 	height: 38px;
 }
 
@@ -49,29 +49,29 @@
 	color: #4b7dde;
 }
 
-.fly-tab-div-edit {
+.jquery-tab-div-edit {
 	border-left: 1px solid #e4e4e4;
 	border-right: 1px solid #e4e4e4;
 	border-bottom: 1px solid #e4e4e4;
 	min-height: 100px;
 }
 
-.fly-tab-edit {
+.jquery-tab-edit {
 	height: 27px;
 	border-top: 1px solid #e4e4e4;
 }
 
-.fly-tab-edit .tab-ul {
+.jquery-tab-edit .tab-ul {
 	padding-left: 15px; 
 	height: 26px;
 	border-bottom: 1px solid #e4e4e4;
 }
 
-.fly-tab-edit .tab-ul .tab-select a {
+.jquery-tab-edit .tab-ul .tab-select a {
 	color: #292929;
 }
 
-.fly-tab-edit .tab-ul-li {
+.jquery-tab-edit .tab-ul-li {
 	float: left;
 	margin: 0;
 	height: 26px;
@@ -80,14 +80,14 @@
 	border-right: none;
 }
 
-.fly-tab-edit .tab-ul-li a {
+.jquery-tab-edit .tab-ul-li a {
 	display: inline-block;
 	padding: 6px 8px 2px 12px;
 	font: 12px "simsun";
 	color: #757575;
 }
 
-.fly-tab-edit .tab-ul-add {
+.jquery-tab-edit .tab-ul-add {
 	float: left;
 	height: 26px;
 	border-top: none;
@@ -96,7 +96,7 @@
 	background: #f5f6f8;
 }
 
-.fly-tab-edit .tab-ul-add a {
+.jquery-tab-edit .tab-ul-add a {
 	float: left;
 	margin-top: 5px;
 	padding: 2px 5px 2px 12px;
@@ -104,7 +104,7 @@
 	color: #333;
 }
 
-.fly-tab-edit .tab-ul-add i {
+.jquery-tab-edit .tab-ul-add i {
 	float: right;
 	display: inline-block;
 	margin-top: 8px;
@@ -114,7 +114,7 @@
 	background: url(../img/tab-add-icon.png) no-repeat;
 }
 
-.fly-tab-edit .tab-del {
+.jquery-tab-edit .tab-del {
 	float: right;
 	margin: 1px 4px 0 0;
 	display: inline-block;
