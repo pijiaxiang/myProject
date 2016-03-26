@@ -6,6 +6,7 @@
             name: 'tab',
             isEdit: false,    // 是否可编辑
             max: 3,    // 控制最多选项卡的个数
+            autoTabWidth: true,
             data: [],
             // 在添加新选项卡之前触发
             beforeAddTab: function() {
@@ -32,17 +33,16 @@
 
             if (this.options.isEdit === false) {
 
-                // if (this.options.adding === true) {
-                //     this.renderTab();
-                //     return this;
-                // }
-
                 if (this.options.data.length === 0) {
                     this.packageData();
                 }
                 this.renderTab();
                 this.addEvent();
                 this.renderSelectTab();
+
+                if (this.options.autoTabWidth === true) {
+                	this.autoWidth(); // 添加宽度自适应
+                }
             }
     		return this;
     	},
@@ -126,9 +126,9 @@
 
             for (var i = 0, max = this.options.data.length; i < max; i++) {
                 if (that.options.data[i].selected) {
-                    li += '<li class="tab-ul-li tab-select" name=\"' + that.options.data[i].name + '\"><a href="javascript:;" onfocus="this.blur();">' + that.options.data[i].text + '</a></li>';
+                    li += '<li class="tab-ul-li tab-select" name="' + that.options.data[i].name + '" title="' + that.options.data[i].text + '"><a href="javascript:;" onfocus="this.blur();">' + that.options.data[i].text + '</a></li>';
                 } else {
-                    li += '<li class="tab-ul-li" name=\"' + that.options.data[i].name + '\"><a href="javascript:;" onfocus="this.blur();">' + that.options.data[i].text + '</a></li>';
+                    li += '<li class="tab-ul-li" name="' + that.options.data[i].name + '" title="' + that.options.data[i].text + '"><a href="javascript:;" onfocus="this.blur();">' + that.options.data[i].text + '</a></li>';
                 }
             }
             if (that.$element.children().hasClass("tab-content-wrapper")) {
@@ -146,7 +146,7 @@
 
             tab = '<div class="jquery-tab jquery-tab-edit">'
                  +     '<ul class="tab-ul clearfix">' 
-                 +          '<li class="tab-ul-add" name="addTab"><a href="javascript:;" onfocus="this.blur();">添加</a><i></i></li>'
+                 +          '<li class="tab-ul-add" name="addTab" title="添加"><a href="javascript:;" onfocus="this.blur();">添加</a><i></i></li>'
                  +     '</ul>'
                  + '</div>'
                  + '<div class="tab-content-wrapper"></div>';
@@ -156,7 +156,7 @@
         initNewHeader: function() {
 
             var tmpl = '<li class="tab-ul-li" name="' + this.tabConfig.name + this.tabConfig.num
-                    + '"><a class="tab-edit-switch" href="javascript:;" onfocus="this.blur();">未知的表单</a><i class="tab-del"></i></li>';
+                    + '" title="未知的表单"><a class="tab-edit-switch" href="javascript:;" onfocus="this.blur();">未知的表单</a><i class="tab-del"></i></li>';
             this.$element.find("[name='addTab']").before(tmpl);
         },
 
@@ -217,6 +217,10 @@
             this.renderNewTab();
             name = this.tabConfig.name + this.tabConfig.num;
             this.options.afterAddTab && this.options.afterAddTab(name, this.$element.children(".tab-content-wrapper").children('[data-tab-content="' + name + '"]'));
+
+            if (this.options.autoTabWidth === true) {
+            	this.autoWidth(); // 添加宽度自适应
+            }
         },
 
         addTabLimit: function() {
@@ -234,10 +238,10 @@
                 name = this.tabConfig.name + this.tabConfig.num;
             if (obj.hasOwnProperty("name")) {
                 tmpl = '<div class="jquery-tab-item" data-tab-content="' + obj.name + '"></div>';
-                li = '<li class="tab-ul-li" name=\"' + obj.name + '\"><a href="javascript:;" onfocus="this.blur();">' + obj.text + '</a></li>';
+                li = '<li class="tab-ul-li" name="' + obj.name + '" title="' + obj.text + '"><a href="javascript:;" onfocus="this.blur();">' + obj.text + '</a></li>';
             } else {
                 tmpl = '<div class="jquery-tab-item" data-tab-content="' + name + '"></div>';
-                li = '<li class="tab-ul-li" name=\"' + name + '\"><a href="javascript:;" onfocus="this.blur();">' + obj.text + '</a></li>';
+                li = '<li class="tab-ul-li" name="' + name + '" title="' + obj.text + '"><a href="javascript:;" onfocus="this.blur();">' + obj.text + '</a></li>';
             }
             
             this.$element.find(".tab-ul").append(li);
@@ -250,7 +254,7 @@
         // 修改了选项卡的名称
         rename: function(name, rename) {
 
-            this.$element.find("[name='" + name + "']").children("a").html(rename);
+            this.$element.find("[name='" + name + "']").attr("title", rename).children("a").html(rename);
         },
 
         // 根据name获取tab选项卡的名字
@@ -266,11 +270,51 @@
 
             if ($delTab.hasClass("tab-select")) {
                 $delTab.remove();
-                this.$element.find(".tab-edit-switch").click();
+                this.$element.find(".tab-edit-switch").last().click();
             } else {
                 $delTab.remove();
             }
             this.$element.find('[data-tab-content="' + name + '"]').remove();
+            
+            if (this.options.autoTabWidth === true) {
+            	this.autoWidth(); // 添加宽度自适应
+            }
+        },
+
+        // 自适应可编辑的tab，当tab数量较多的时候起效果
+        autoWidth: function() {
+        	debugger;
+        	var ulWidth = this.$element.find('ul.tab-ul').width(),
+        		addWidth = this.$element.find('li.tab-ul-add').width(),
+        		$li = this.$element.find('li.tab-ul-li'),
+        		length = $li.length,
+        		liMaxWidth = ulWidth - addWidth - length * 1;
+        		liWidth = 0;
+        	for (var i = 0; i < length; i++) {
+        		liWidth += $li.eq(i).width();
+        	};
+        	if (liMaxWidth > liWidth) {
+        		console.log(1);
+        	} else {
+        		$li.children('a').css({width: (liMaxWidth / length - 40)}).addClass('ell');
+        		window.onresize = function() {
+        			this.changeWidth();
+        		}
+        	}
+        },
+
+        changeWidth: function() {
+        	var ulWidth = this.$element.find('ul.tab-ul').width(),
+        		addWidth = this.$element.find('li.tab-ul-add').width(),
+        		$li = this.$element.find('li.tab-ul-li'),
+        		length = $li.length,
+        		liMaxWidth = ulWidth - addWidth - length * 1;
+        		liWidth = 0;
+        	for (var i = 0; i < length; i++) {
+        		liWidth += $li.eq(i).width();
+        	};
+
+        	$li.children('a').css({width: (liMaxWidth / length - 40)}).addClass('ell');
         }
     };
 

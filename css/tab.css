@@ -62,9 +62,10 @@
 }
 
 .jquery-tab-edit .tab-ul {
-	padding-left: 15px; 
+	/*padding-left: 15px; */
 	height: 26px;
 	border-bottom: 1px solid #e4e4e4;
+	border-right: 1px solid #e4e4e4;
 }
 
 .jquery-tab-edit .tab-ul .tab-select a {

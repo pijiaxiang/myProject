@@ -6,6 +6,7 @@ $(function() {
 
 	$("#editTab").tab({
 		name: "tabEdit",
+		max: 10,
 		isEdit: true
 	});
 });
