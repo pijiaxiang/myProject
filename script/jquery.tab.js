@@ -6,7 +6,7 @@
             name: 'tab',
             isEdit: false,    // 是否可编辑
             max: 3,    // 控制最多选项卡的个数
-            autoTabWidth: true,
+            autoTabWidth: false,
             data: [],
             // 在添加新选项卡之前触发
             beforeAddTab: function() {
@@ -283,7 +283,6 @@
 
         // 自适应可编辑的tab，当tab数量较多的时候起效果
         autoWidth: function() {
-        	debugger;
         	var ulWidth = this.$element.find('ul.tab-ul').width(),
         		addWidth = this.$element.find('li.tab-ul-add').width(),
         		$li = this.$element.find('li.tab-ul-li'),
@@ -293,6 +292,8 @@
         	for (var i = 0; i < length; i++) {
         		liWidth += $li.eq(i).width();
         	};
+
+        	// 此处遇到问题，当加上固宽后，无法在删除tab和拉伸浏览器的时候，判断何时去掉固宽
         	if (liMaxWidth > liWidth) {
         		console.log(1);
         	} else {
@@ -303,6 +304,7 @@
         	}
         },
 
+        // 浏览器窗口改变时的事件触发
         changeWidth: function() {
         	var ulWidth = this.$element.find('ul.tab-ul').width(),
         		addWidth = this.$element.find('li.tab-ul-add').width(),
